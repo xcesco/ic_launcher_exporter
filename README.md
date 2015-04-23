@@ -1,5 +1,5 @@
 ic_launcher_exporter script for Photoshop
------------------------------------------
+==========================================
 
 This script for Photoshop help you to create directly from a PSD file the collection of images to use as ic_launcher in android applications development within Eclipse with ADT plugin or Android studio IDE. The icons generated cover following resolution (for dpi-density):
 
@@ -10,10 +10,12 @@ This script for Photoshop help you to create directly from a PSD file the collec
  - **xxhdpi**: 144 x 144 px
  - **xxxhdpi**: 192 x 192 px
 
-**Installation**
+Installation
+------------
 Just download the script **script/ic_launcher_exporter-1.0.0.jsx** from github repository to your photoshop plugin directory.
 
-**Usage**
+Usage
+-----
 In Photoshop, once you have opened your image, you can select script with menu `File -> Scripts -> Browse` . When dialog appears, you can select the root folder where script generate needed files. Moreover you can select project layout you are using.
 
 For eclipse project you have to select `<project folder>/res` as root folder. If not present, script will generates folders. The generate files are:
