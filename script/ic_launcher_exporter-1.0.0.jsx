@@ -25,7 +25,8 @@
 **/
 
 /*
-	PSD IC_LAUNCHER EXPORTER by 
+	PSD IC_LAUNCHER EXPORTER by Francesco Benincasa
+	
 	History 
 	-------
 	
