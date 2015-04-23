@@ -16,7 +16,13 @@ Just download the script **script/ic_launcher_exporter-1.0.0.jsx** from github r
 
 Usage
 -----
-In Photoshop, once you have opened your image, you can select script with menu `File -> Scripts -> Browse` . When dialog appears, you can select the root folder where script generate needed files. Moreover you can select project layout you are using.
+In Photoshop, once you have opened your image, you can select script with menu `File -> Scripts -> Browse` .
+
+![screenshot1](https://cloud.githubusercontent.com/assets/8819631/7304940/acdb4120-e9fa-11e4-8f0f-2bf6c11a325a.jpg)
+
+When dialog appears, you can select the root folder where script generate needed files. Moreover you can select project layout you are using.
+
+![screenshot2](https://cloud.githubusercontent.com/assets/8819631/7304966/c5a25e1e-e9fa-11e4-8171-290118581eb6.png)
 
 For eclipse project you have to select `<project folder>/res` as root folder. If not present, script will generate needed sub-folders. The generate files are:
 
