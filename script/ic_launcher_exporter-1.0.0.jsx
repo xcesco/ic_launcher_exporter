@@ -244,6 +244,8 @@ function main() {
 		docRef.activeHistoryState = savedState;
 		
 	}
+	
+	alert('Export complete. '+numImageSizes+' images generated.');
 }
 
 main();
