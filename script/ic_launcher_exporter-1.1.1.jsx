@@ -30,13 +30,18 @@
 	History 
 	-------
 	
+	Version 1.1.1 - 2015/04/29
+	---------------------------
+	Path adjustment for android studio config.
+		
+	Version 1.1.0 - 2015/04/29
+	---------------------------
+	User interface improvements.
+	
 	Version 1.0.0 - 2015/04/23
 	--------------------------
 	First release. You can select root folder from which create or fill subdirectory with ic_launcher files generated from actual PSD file.
 	
-	Version 1.1.0 - 2015/04/29
-	---------------------------
-	User interface improvements.
 
 */
 
@@ -65,11 +70,15 @@
 */
 
 var APP = "ic_launcher psd exporter";
-var VERSION = "1.1.0";
+var VERSION = "1.1.1";
 var AUTHOR = "Francesco Benincasa, ( abubusoft@gmail.com )";
 
 var PROJECT_TYPE_ANDROID_STUDIO = "ANDROID_STUDIO";
 var PROJECT_TYPE_ECLIPSE = "ECLIPSE";
+
+// we suppose psd file is in /art .
+// target folder will be  /app/src/main/res
+var ANDROID_STUDIO_RELATIVE_PATH = '\\..\\app\\src\\main\\res\\';
 
 function isDocumentNew() {  
 	try {
@@ -140,7 +149,7 @@ function main() {
 			btnBrowse:Button{ text:'...' }\
         },\
         info : Group {  width: 100%,\
-                        info: StaticText { width: 100%, text:'', characters: 80}\
+                        info: StaticText { width: 100%, text:'', characters: 120}\
             },\
         exportType: Panel { \
 			text: ' Export folders ', \
@@ -156,15 +165,13 @@ function main() {
 			btnCancel:	Button	{ text:'Cancel'	, size: [120,24], alignment:['right', 'center'] }\
 		}\
 	};");
-    
-    
-    
+            
 	dlg.folder.txtValue.text=rootFolder;
     dlg.folder.chkBoxDefaultRoot.value=true;
     dlg.folder.txtValue.enabled=false;
     dlg.folder.btnBrowse.enabled=false;
-    dlg.info.info.text='Files will be created in '+unescape(rootFolder+'\\..\\res\\');
-    
+    dlg.info.info.text='Files will be created in '+unescape(rootFolder+ANDROID_STUDIO_RELATIVE_PATH);
+    		
 	dlg.exportType.ddlProjectStyle.selection=0;
 	dlg.exportType.ddlProjectStyle.onChange = function(){  
 		if (dlg.exportType.ddlProjectStyle.selection == 0) exportType=PROJECT_TYPE_ANDROID_STUDIO;
@@ -194,7 +201,7 @@ function main() {
         } else {
             dlg.folder.txtValue.enabled=false;
             dlg.folder.btnBrowse.enabled=false;
-            dlg.info.info.text='Files will be created in '+unescape(rootFolder+'\\..\\res\\');
+            dlg.info.info.text='Files will be created in '+unescape(rootFolder+ANDROID_STUDIO_RELATIVE_PATH);
         }
     }
 	dlg.buttons.btnSave.onClick = function() {
@@ -243,7 +250,7 @@ function main() {
     var subFolder='';         
     if (dlg.folder.chkBoxDefaultRoot.value)
     {
-        subFolder='/../res';                             
+        subFolder=ANDROID_STUDIO_RELATIVE_PATH;                             
     } 
     
     var baseSubFolder=Folder(rootFolder+subFolder);
