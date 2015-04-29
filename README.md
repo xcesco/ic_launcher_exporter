@@ -12,7 +12,7 @@ This script for Photoshop help you to create directly from a PSD file the collec
 
 Installation
 ------------
-Just download the script **script/ic_launcher_exporter-1.1.0.jsx** from github repository to your photoshop plugin directory.
+Just download the script **script/ic_launcher_exporter-<version>.jsx** from github repository to your photoshop plugin directory.
 
 Usage
 -----
