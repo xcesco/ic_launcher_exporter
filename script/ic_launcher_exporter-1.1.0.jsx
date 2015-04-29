@@ -33,6 +33,10 @@
 	Version 1.0.0 - 2015/04/23
 	--------------------------
 	First release. You can select root folder from which create or fill subdirectory with ic_launcher files generated from actual PSD file.
+	
+	Version 1.1.0 - 2015/04/29
+	---------------------------
+	User interface improvements.
 
 */
 
@@ -60,22 +64,24 @@
         
 */
 
-const APP="ic_launcher psd exporter";
-const VERSION="1.0.0";
-const AUTHOR="Francesco Benincasa, ( abubusoft@gmail.com )";
+var APP = "ic_launcher psd exporter";
+var VERSION = "1.1.0";
+var AUTHOR = "Francesco Benincasa, ( abubusoft@gmail.com )";
 
-const PROJECT_TYPE_ANDROID_STUDIO="ANDROID_STUDIO";
-const PROJECT_TYPE_ECLIPSE="ECLIPSE";
+var PROJECT_TYPE_ANDROID_STUDIO = "ANDROID_STUDIO";
+var PROJECT_TYPE_ECLIPSE = "ECLIPSE";
 
-function isDocumentNew(){ 
+function isDocumentNew() {  
 	try {
-		var dummy=app.activeDocument.path.fsName;
+		var dummy = app.activeDocument.path.fsName;
 		return false;
 	}
 	catch(err) {
 
-		return true;
+		
 	}
+    
+    return true;
 }
 
 function main() {
@@ -86,7 +92,7 @@ function main() {
 	}
 	
 	
-	if(isDocumentNew()){// X's function 
+	if(isDocumentNew()) {        
 		alert("New document must saved before script can proceed. Save and try again.");
 		return;
 	} 
@@ -109,12 +115,12 @@ function main() {
 	var numLayers = layers.length;
 	 
 	var imageSizes = [
-		["192px","192px", "xxxhdpi"],
-		["144px","144px", "xxhdpi"],
-		["96px", "96px", "xhdpi"],
-		["72px", "72px", "hdpi"],
-		["48px", "48px", "mdpi"],
-		["36px", "36px", "ldpi"]
+		["192px","192px", "xxxhdpi" ],
+		["144px","144px", "xxhdpi"  ],
+		["96px" , "96px", "xhdpi"   ],
+		["72px" , "72px", "hdpi"    ],
+		["48px" , "48px", "mdpi"    ],
+		["36px" , "36px", "ldpi"    ]
 	]; 
 
 	var proceed=false;
@@ -128,30 +134,41 @@ function main() {
 			orientation: 'row', \
 			alignChildren: 'left', \
 			margins:15, \
-			text: ' Base folder for export ', \
-			buh: StaticText { text:'Root folder: '},\
-			txtValue:EditText{ text:'' , characters: 80 , properties:{multiline:false,noecho:false,readonly:false}},\
+			text: ' Folder for export ', \
+            chkBoxDefaultRoot: Checkbox { text:'Psd folder is in project folder', value: true }, \
+			txtValue:EditText{ text:'' , characters: 80 , properties:{multiline:false,noecho:false}},\
 			btnBrowse:Button{ text:'...' }\
-		},\
-		exportType: Panel { \
-			text: ' Project structure ', \
+        },\
+        info : Group {  width: 100%,\
+                        info: StaticText { width: 100%, text:'', characters: 80}\
+            },\
+        exportType: Panel { \
+			text: ' Export folders ', \
 			orientation: 'row', \
 			alignChildren: 'left', \
 			margins:15,\
 			buh: StaticText { text:'Project structure: '},\
-			ddlProjectStyle:DropDownList{properties:{items:['Android studio project','Eclipse project']}}\
+			ddlProjectStyle: DropDownList { properties:{items:['Create in mipmap-* subfolders','Create in drawable-* subfolders'] }}\
 		},\
-		separator : Panel { width: 100%, height: 2 , margins:15},\
+        separator : Panel { width: 100%, height: 2 , margins:15},\
 		buttons : Group { \
 			btnSave:	Button	{ text:'Save'	, size: [120,24], alignment:['right', 'center'] },\
 			btnCancel:	Button	{ text:'Cancel'	, size: [120,24], alignment:['right', 'center'] }\
 		}\
 	};");
+    
+    
+    
 	dlg.folder.txtValue.text=rootFolder;
-	dlg.exportType.ddlProjectStyle.selection=0;  
-	dlg.exportType.ddlProjectStyle.onChange= function(){  
-		if (dlg.exportType.ddlProjectStyle.selection==0) exportType=PROJECT_TYPE_ANDROID_STUDIO;
-		if (dlg.exportType.ddlProjectStyle.selection==1) exportType=PROJECT_TYPE_ECLIPSE;			
+    dlg.folder.chkBoxDefaultRoot.value=true;
+    dlg.folder.txtValue.enabled=false;
+    dlg.folder.btnBrowse.enabled=false;
+    dlg.info.info.text='Files will be created in '+unescape(rootFolder+'\\..\\res\\');
+    
+	dlg.exportType.ddlProjectStyle.selection=0;
+	dlg.exportType.ddlProjectStyle.onChange = function(){  
+		if (dlg.exportType.ddlProjectStyle.selection == 0) exportType=PROJECT_TYPE_ANDROID_STUDIO;
+		if (dlg.exportType.ddlProjectStyle.selection == 1) exportType=PROJECT_TYPE_ECLIPSE;			
 	}  
 	dlg.folder.btnBrowse.onClick = function() {  
 		var dir = Folder(dlg.folder.txtValue.text);
@@ -164,6 +181,22 @@ function main() {
 		dlg.folder.txtValue.text=unescape(baseFolder);
 		rootFolder=baseFolder;	
 	}
+    
+    dlg.folder.chkBoxDefaultRoot.onClick = function() {
+        rootFolder=docRef.path.fsName;
+        dlg.folder.txtValue.text=unescape(rootFolder);      
+        
+        if (!dlg.folder.chkBoxDefaultRoot.value)
+        {
+            dlg.folder.txtValue.enabled=true;
+            dlg.folder.btnBrowse.enabled=true;
+            dlg.info.info.text='Files will be created in '+unescape(rootFolder);
+        } else {
+            dlg.folder.txtValue.enabled=false;
+            dlg.folder.btnBrowse.enabled=false;
+            dlg.info.info.text='Files will be created in '+unescape(rootFolder+'\\..\\res\\');
+        }
+    }
 	dlg.buttons.btnSave.onClick = function() {
 		var folder=Folder(dlg.folder.txtValue.text);
 		if(folder.exists) {
@@ -206,6 +239,17 @@ function main() {
 	exportOptionsSaveForWeb.quality = 100;
 
 	parentFolderPath = Folder(app.activeDocument.fullName.parent).fsName;
+    
+    var subFolder='';         
+    if (dlg.folder.chkBoxDefaultRoot.value)
+    {
+        subFolder='/../res';                             
+    } 
+    
+    var baseSubFolder=Folder(rootFolder+subFolder);
+    if(!baseSubFolder.exists) {            
+        baseSubFolder.create();
+    }
 	 
 	// 1. Loop through the image sizes.
 	var numImageSizes = imageSizes.length;
@@ -220,15 +264,15 @@ function main() {
 		
 		// Resize to the desired image size.
 		docRef.resizeImage(currentImageWidth, currentImageHeight, null, ResampleMethod.BICUBIC);
-		 
-		var documentPath;
 		
+        var documentPath;
 		if (exportType==PROJECT_TYPE_ANDROID_STUDIO)
 		{
-			documentPath=rootFolder+"/mipmap-"+currentImageResolution;
+			documentPath=baseSubFolder+"/mipmap-"+currentImageResolution;
 		} else {
-			documentPath=rootFolder+"/drawable-"+currentImageResolution;
-		}
+			documentPath=baseSubFolder+"/drawable-"+currentImageResolution;
+		}    
+    
 		var folder=Folder(documentPath);
 		if(!folder.exists) {
 			folder.create();
