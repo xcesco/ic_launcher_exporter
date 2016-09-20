@@ -42,4 +42,4 @@ For Android Studio layout, you have to select <project folder>/res as root foder
  - `mipmap-xxhdpi/ic_launcher.png`
  - `mipmap-xxxhdpi/ic_launcher.png`
 
-Supported version of Android Studio is 1.1.0. For previous version consider to use Eclipse layout.
+Supported version of Android Studio is 1.1.0 and above. For previous version consider to use Eclipse layout.
