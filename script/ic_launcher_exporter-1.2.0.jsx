@@ -30,6 +30,10 @@
 	History 
 	-------
 	
+    Version 1.2.0 - 2016/09/20
+    --------------------------
+    Add support to generic image size
+    
 	Version 1.1.1 - 2015/04/29
 	---------------------------
 	Path adjustment for android studio config.
@@ -70,7 +74,7 @@
 */
 
 var APP = "ic_launcher psd exporter";
-var VERSION = "1.1.1";
+var VERSION = "1.2.0";
 var AUTHOR = "Francesco Benincasa, ( abubusoft@gmail.com )";
 
 var PROJECT_TYPE_ANDROID_STUDIO = "ANDROID_STUDIO";
@@ -110,9 +114,10 @@ function main() {
 	w = app.activeDocument.width.as('px');
 	h = app.activeDocument.height.as('px');
 		
-	if (parseInt(w)!=parseInt(h) || 864!=parseInt(w))
+	//if (parseInt(w)!=parseInt(h) || 864!=parseInt(w))
+    if (parseInt(w)!=parseInt(h))
 	{
-		alert("Current size is ("+w+"x"+h+"), but image must be 864x864.");
+		alert("Current size is ("+w+"x"+h+"), but image must be square.");
 		return;
 	}
 	 
