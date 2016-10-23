@@ -143,9 +143,9 @@ function main() {
 	]; 
     
     var icNotifyIconSizes = [
-		["88px" , "88px", "xxxhdpi" ],
-		["66px" , "66px", "xxhdpi"  ],
-		["44px" , "44px", "xhdpi"   ],
+		["96px" , "96px", "xxxhdpi" ],
+		["72px" , "72px", "xxhdpi"  ],
+		["48px" , "48px", "xhdpi"   ],
 		["36px" , "36px", "hdpi"    ],
 		["24px" , "24px", "mdpi"    ]		
 	]; 
