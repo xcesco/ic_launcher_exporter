@@ -176,7 +176,7 @@ function main() {
 			orientation: 'row', \
 			alignChildren: 'left', \
 			margins:15,\
-			buh: StaticText { text:'Project structure: '},\
+			buh: StaticText { text:'Icon type: '},\
 			ddlIconType: DropDownList { properties:{items:['Launcher icons','Notify icons'] }}\
 		},\
         exportType: Panel { \
