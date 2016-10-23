@@ -19,8 +19,8 @@ And for notification area icons:
  - **mdpi**: 24 x 24 px
  - **hdpi**: 36 x 36 px
  - **xhdpi**: 44 x 44 px
- - **xxhdpi**: 66 x 66 px
- - **xxxhdpi**: 88 x 88 px 
+ - **xxhdpi**: 72 x 72 px
+ - **xxxhdpi**: 96 x 96 px 
 
 Installation
 ------------
