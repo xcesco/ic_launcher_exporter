@@ -34,6 +34,7 @@
     --------------------------
     Removed generation for low density icons
     Add notifiy icon generation
+    Is possibile to specify generated icon's name
 	
     Version 1.2.0 - 2016/09/20
     --------------------------
@@ -179,12 +180,14 @@ function main() {
 			ddlIconType: DropDownList { properties:{items:['Launcher icons','Notify icons'] }}\
 		},\
         exportType: Panel { \
-			text: ' Export folders ', \
+			text: ' Export folder and filename ', \
 			orientation: 'row', \
 			alignChildren: 'left', \
 			margins:15,\
 			buh: StaticText { text:'Project structure: '},\
 			ddlProjectStyle: DropDownList { properties:{items:['Create in mipmap-* subfolders','Create in drawable-* subfolders'] }}\
+			buh2: StaticText { text:'File name: '},\
+			txtFileName:EditText{ text:'' , characters: 20 , properties:{multiline:false,noecho:false}},\
 		},\
         separator : Panel { width: 100%, height: 2 , margins:15},\
 		buttons : Group { \
@@ -198,6 +201,7 @@ function main() {
     dlg.folder.txtValue.enabled=false;
     dlg.folder.btnBrowse.enabled=false;
     dlg.info.info.text='Files will be created in '+unescape(rootFolder+ANDROID_STUDIO_RELATIVE_PATH);
+    dlg.exportType.txtFileName.text="ic_launcher";
     		
     
     dlg.iconType.ddlIconType.selection=0;
@@ -208,6 +212,7 @@ function main() {
             // if notification, write icons in mipmap
             dlg.exportType.ddlProjectStyle.selection=0;
             imageSizes=icLauncherIconSizes;
+            dlg.exportType.txtFileName.text="ic_launcher";
         }
         // NOTIFICATION
 		if (dlg.iconType.ddlIconType.selection == 1)
@@ -215,6 +220,7 @@ function main() {
             // if notification, write icons in drawable
             dlg.exportType.ddlProjectStyle.selection=1;
             imageSizes=icNotifyIconSizes;
+            dlg.exportType.txtFileName.text="ic_notification";
         }
 	}  
     
@@ -331,7 +337,7 @@ function main() {
 			folder.create();
 		}
 		
-		var documentFile = documentPath +"/ic_launcher.png";	
+		var documentFile = documentPath +"/"+dlg.exportType.txtFileName.text+".png";
 		var file = new File(documentFile);
 			
 		// Save image
