@@ -150,7 +150,7 @@ function main() {
 		["24px" , "24px", "mdpi"    ]		
 	]; 
     
-    var imageSizes=icNotifyIconSizes;
+    var imageSizes=icLauncherIconSizes;
 
 	var proceed=false;
 	var exportType=PROJECT_TYPE_ANDROID_STUDIO;
